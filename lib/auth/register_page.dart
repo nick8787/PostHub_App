@@ -1,5 +1,3 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:user_auth_crudd10/services/functions/user_data_store.dart';
@@ -33,39 +31,20 @@ class _RegisterPageState extends State<RegisterPage> {
 
   //method to create account
   Future signUp() async {
-    try {
-      if (checkPassowrd()) {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim(),
-        );
-        User? user = userCredential.user;
-        if (user != null) {
-          await storeUserData(
-            _nameController.text.trim(),
-            _yearController.text.trim(),
-            _emailController.text.trim(),
-          );
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text("Password is Incorrect"),
-            duration: const Duration(seconds: 3),
-            backgroundColor: Colors.red[200],
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(12),
-              ),
-            ),
-          ),
-        );
-      }
-    } on FirebaseAuthException catch (e) {
+    if (checkPassowrd()) {
+      await storeUserData(
+        _nameController.text.trim(),
+        _yearController.text.trim(),
+        _emailController.text.trim(),
+      );
+      // TODO: integrate sign up with your API
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Registration not implemented')),
+      );
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(e.message.toString()),
+          content: const Text("Password is Incorrect"),
           duration: const Duration(seconds: 3),
           backgroundColor: Colors.red[200],
           shape: const RoundedRectangleBorder(
