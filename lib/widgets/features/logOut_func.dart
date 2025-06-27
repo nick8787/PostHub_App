@@ -1,22 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class logOutFunc extends StatelessWidget {
   const logOutFunc({
     super.key,
-    required this.auth,
+    required this.onLogout,
   });
 
-  final FirebaseAuth auth;
+  final VoidCallback onLogout;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
-        onTap: () {
-          auth.signOut();
-        },
+        onTap: onLogout,
         child: Container(
           alignment: Alignment.center,
           height: 50,

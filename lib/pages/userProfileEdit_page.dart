@@ -1,48 +1,35 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserProfileEdit extends StatefulWidget {
+  final String name;
+  final String year;
+
+  const UserProfileEdit({super.key, required this.name, required this.year});
+
   @override
   _UserProfileEditState createState() => _UserProfileEditState();
 }
 
 class _UserProfileEditState extends State<UserProfileEdit> {
-  final auth = FirebaseAuth.instance;
-  final firestore = FirebaseFirestore.instance;
 
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _yearController = TextEditingController();
+  late TextEditingController _nameController;
+  late TextEditingController _yearController;
 
   @override
   void initState() {
     super.initState();
-    _loadUserData();
+    _nameController = TextEditingController(text: widget.name);
+    _yearController = TextEditingController(text: widget.year);
   }
 
-  void _loadUserData() async {
-    User? user = auth.currentUser;
-    if (user != null) {
-      DocumentSnapshot userData =
-          await firestore.collection('users').doc(user.uid).get();
-      Map<String, dynamic> data = userData.data() as Map<String, dynamic>;
-      _nameController.text = data['userName'] ?? '';
-      _yearController.text = data['year'] ?? '';
-    }
-  }
-
-  Future<void> _updateUserData() async {
+  void _updateUserData() {
     if (_formKey.currentState!.validate()) {
-      User? user = auth.currentUser;
-      if (user != null) {
-        await firestore.collection('users').doc(user.uid).update({
-          'userName': _nameController.text,
-          'year': _yearController.text,
-        });
-        Navigator.pop(context);
-      }
+      Navigator.pop(context, {
+        'name': _nameController.text,
+        'year': _yearController.text,
+      });
     }
   }
 
