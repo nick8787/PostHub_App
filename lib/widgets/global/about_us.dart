@@ -50,7 +50,7 @@ class aboutUs extends StatelessWidget {
                           horizontal: 10,
                         ),
                         child: Text(
-                          'PrepPdf offers free access to structured previous year question papers (PYQs) and solutions. Navigate seamlessly through a variety of subjects, supported by Firebase for reliable storage and real-time updates. Empowering students with essential exam resources and community insights, PrepPdf is your trusted companion for academic success.',
+                          'PrepPdf offers free access to structured previous year question papers (PYQs) and solutions. Navigate seamlessly through a variety of subjects with reliable resources and community insights.',
                           style: TextStyle(
                             fontSize: 15,
                             color: Color.fromARGB(255, 64, 64, 64),
