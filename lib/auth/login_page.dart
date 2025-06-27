@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,27 +22,10 @@ class _LoginPageState extends State<LoginPage> {
 
   //login logic
   Future signIn() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-    } on FirebaseException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            e.message.toString(),
-          ),
-          duration: const Duration(seconds: 3),
-          backgroundColor: Colors.red[200],
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(12),
-            ),
-          ),
-        ),
-      );
-    }
+    // TODO: integrate sign in with your API
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Login not implemented')),
+    );
   }
 
   //dispose

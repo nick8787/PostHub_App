@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,12 +14,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final auth = FirebaseAuth.instance;
-  final authData = FirebaseFirestore.instance;
+  String userName = 'Guest User';
+  String email = 'guest@example.com';
+  String year = '1';
 
   @override
   Widget build(BuildContext context) {
-    User? currentUser = auth.currentUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -47,31 +45,8 @@ class _ProfilePageState extends State<ProfilePage> {
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
-      body: currentUser == null
-          ? const Center(
-              child: Text('No User Logged in'),
-            )
-          : FutureBuilder<DocumentSnapshot>(
-              future: authData.collection('users').doc(currentUser.uid).get(),
-              builder: (context, userSnapshot) {
-                if (userSnapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (userSnapshot.hasError) {
-                  return const Center(
-                    child: Text("Error fetching user data"),
-                  );
-                } else if (!userSnapshot.hasData ||
-                    !userSnapshot.data!.exists) {
-                  return const Center(
-                    child: Text('User data not found'),
-                  );
-                } else {
-                  var userData =
-                      userSnapshot.data!.data() as Map<String, dynamic>;
-                  return SingleChildScrollView(
-                    child: Center(
+      body: SingleChildScrollView(
+              child: Center(
                       child: Column(
                         children: [
                           Padding(
@@ -102,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             horizontal: 15,
                                           ),
                                           child: Text(
-                                            "${userData['userName']}",
+                                            userName,
                                             style: GoogleFonts.inter(
                                               fontSize: 20,
                                               fontWeight: FontWeight.w600,
@@ -116,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             horizontal: 15,
                                           ),
                                           child: Text(
-                                            '${userData['email']}',
+                                            email,
                                             style: GoogleFonts.inter(
                                               fontSize: 18,
                                             ),
@@ -128,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             horizontal: 15,
                                           ),
                                           child: Text(
-                                            "Year: ${userData['year']}",
+                                            "Year: $year",
                                             style: GoogleFonts.inter(
                                               fontSize: 18,
                                             ),
@@ -221,14 +196,21 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(
                             height: 25,
                           ),
-                          logOutFunc(auth: auth)
+                          logOutFunc(onLogout: _logout)
                         ],
                       ),
                     ),
-                  );
-                }
-              },
+                  ),
+                ),
+              ],
             ),
+          ),
+        ),
+      ),
     );
+  }
+
+  void _logout() {
+    // TODO: integrate logout with your API
   }
 }
