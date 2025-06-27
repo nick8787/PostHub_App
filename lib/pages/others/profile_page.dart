@@ -34,34 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  height: 140,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15),
-                              child: Text(
-                                userName,
-                                style: GoogleFonts.inter(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
+
                                 ),
                               ),
                             ),
@@ -139,26 +112,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                           ),
-                        ),
-                        const SizedBox(width: 60),
-                        Switch(
-                          value: Provider.of<ThemeProvider>(context).isDarkMode,
-                          onChanged: (value) {
-                            Provider.of<ThemeProvider>(context, listen: false)
-                                .toggleTheme();
-                          },
-                          activeColor: Colors.blue,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 25),
-              const aboutUs(),
-              const SizedBox(height: 25),
-              logOutFunc(onLogout: _logout),
-            ],
           ),
         ),
       ),
