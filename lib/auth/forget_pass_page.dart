@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,38 +12,10 @@ class _ForgetPassPageState extends State<ForgetPassPage> {
   final _emailControllerResetLink = TextEditingController();
 
   Future sentResetLink() async {
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(
-        email: _emailControllerResetLink.text.trim(),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text("Password Reset Link Sent Succesfully!"),
-          duration: const Duration(seconds: 3),
-          backgroundColor: Colors.green[200],
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(12),
-            ),
-          ),
-        ),
-      );
-    } on FirebaseException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            e.message.toString(),
-          ),
-          duration: const Duration(seconds: 3),
-          backgroundColor: Colors.red[200],
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(12),
-            ),
-          ),
-        ),
-      );
-    }
+    // TODO: implement password reset via your API
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Reset link functionality not implemented')),
+    );
   }
 
   @override

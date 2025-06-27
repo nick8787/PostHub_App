@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_auth_crudd10/pages/others/PdfViewerPage.dart';
@@ -83,15 +82,9 @@ class _FolderPageState extends State<FolderPage> {
   }
 
   void _openPdf(BuildContext context, String path) async {
-    final pdfUrl = await FirebaseStorage.instance.ref(path).getDownloadURL();
-    final document = await PDFDocument.fromURL(pdfUrl);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PdfViewerPage(
-          document: document,
-        ),
-      ),
+    // TODO: load PDF from your storage
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Open PDF: ' + path)),
     );
   }
 }
