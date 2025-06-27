@@ -33,6 +33,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^6.2.1
   firebase_core: ^3.1.0
+  firebase_auth: ^4.1.5
+  cloud_firestore: ^5.0.1
   firebase_storage: ^12.0.5    # <-- обновили на 12.x
   firebase_messaging: ^15.0.0
   firebase_analytics: ^11.0.0
