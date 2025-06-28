@@ -1,7 +1,15 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
+// dotenv
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+// HTTP-клиент
+import 'package:http/http.dart' as http;
 import 'package:user_auth_crudd10/auth/forget_pass_page.dart';
+import 'package:user_auth_crudd10/pages/home_page.dart';
+
+import '../pages/bottom_nav.dart';
+
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -21,11 +29,55 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   //login logic
-  Future signIn() async {
-    // TODO: integrate sign in with your API
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Login not implemented')),
-    );
+  Future<void> signIn() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Введите email и пароль')),
+      );
+      return;
+    }
+
+    final baseUrl = dotenv.env['API_URL']!;
+    final uri = Uri.parse('$baseUrl/auth/login');
+
+    try {
+      final resp = await http.post(
+        uri,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+        }),
+      );
+
+      if (resp.statusCode == 200) {
+        final body = jsonDecode(resp.body) as Map<String, dynamic>;
+        final token = body['token'];
+
+        // Успешный логин — переход на HomePage
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const BottomNavBar(),
+          ),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Успешная авторизация!')),
+        );
+      } else {
+        final err = jsonDecode(resp.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Ошибка ${resp.statusCode}: ${err['message'] ?? resp.body}')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ошибка сети: $e')),
+      );
+    }
   }
 
   //dispose

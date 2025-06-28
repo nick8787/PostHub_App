@@ -67,7 +67,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/grid/
-#    - .env
+    - .env
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
