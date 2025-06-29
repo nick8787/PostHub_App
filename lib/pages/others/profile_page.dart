@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:user_auth_crudd10/pages/userProfileEdit_page.dart';
+import 'package:user_auth_crudd10/services/providers/user_provider.dart';
 import 'package:user_auth_crudd10/services/settings/theme_provider.dart';
 import 'package:user_auth_crudd10/widgets/features/logOut_func.dart';
 import 'package:user_auth_crudd10/widgets/global/about_us.dart';
+import '../../model/user_model.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -14,24 +16,23 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String userName = 'Guest User';
-  String email = 'guest@example.com';
-  String year = '1';
-
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
-          'Profile Page',
+          'Profile',
           style: GoogleFonts.inter(
-            fontWeight: FontWeight.w500,
-            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            fontSize: 24,
           ),
         ),
       ),
@@ -39,11 +40,17 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            /// --- USER INFO BLOCK ---
             Row(
               children: [
-                Image.asset(
-                  'assets/images/profile_person.png',
-                  scale: 2,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    'assets/images/profile_person.png',
+                    height: 80,
+                    width: 80,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 const SizedBox(width: 20),
                 Expanded(
@@ -51,43 +58,54 @@ class _ProfilePageState extends State<ProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        userName,
+                        user?.username ?? 'Guest User',
                         style: GoogleFonts.inter(
                           fontSize: 22,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                      const SizedBox(height: 4),
                       Text(
-                        email,
-                        style: GoogleFonts.inter(fontSize: 18),
+                        user?.email ?? 'guest@example.com',
+                        style: GoogleFonts.inter(fontSize: 16),
                       ),
+                      const SizedBox(height: 4),
                       Text(
-                        'Year: $year',
-                        style: GoogleFonts.inter(fontSize: 18),
+                        'Role: ${user?.role ?? 'GUEST'}',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
                       ),
+                      const SizedBox(height: 6),
                       GestureDetector(
                         onTap: () async {
                           final result = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => UserProfileEdit(
-                                name: userName,
-                                year: year,
+                                name: user?.username ?? '',
+                                year: '1',
                               ),
                             ),
                           );
-                          if (result != null) {
-                            setState(() {
-                              userName = result['name'];
-                              year = result['year'];
-                            });
+                          if (result != null && user != null) {
+                            userProvider.setUser(
+                              UserModel(
+                                id: user.id,
+                                username: result['name'],
+                                email: user.email,
+                                role: user.role,
+                              ),
+                            );
                           }
                         },
                         child: Text(
-                          'Edit',
+                          'Edit profile',
                           style: GoogleFonts.inter(
-                            fontSize: 18,
-                            color: Colors.blue,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
@@ -96,46 +114,45 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-            const SizedBox(height: 25),
+
+            const SizedBox(height: 30),
+
+            /// --- DARK MODE TOGGLE ---
             Container(
-              height: 60,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).cardColor,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Icon(Icons.nights_stay_rounded),
-                  const Text(
-                    'Dark Mode',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Switch(
-                    value: themeProvider.isDarkMode,
-                    onChanged: (value) {
-                      themeProvider.toggleTheme();
-                    },
-                  ),
-                ],
+              child: ListTile(
+                leading: const Icon(Icons.nights_stay),
+                title: const Text(
+                  'Dark Mode',
+                  style: TextStyle(fontSize: 18),
+                ),
+                trailing: Switch(
+                  value: themeProvider.isDarkMode,
+                  onChanged: (value) {
+                    themeProvider.toggleTheme();
+                  },
+                ),
               ),
             ),
+
             const SizedBox(height: 20),
 
-            /// 🔻 Вот твоя кастомная кнопка выхода
+            /// --- ABOUT US ---
+            // const AboutUs(),
+
+            const SizedBox(height: 20),
+
+            /// --- LOGOUT BUTTON ---
             // LogoutButton(
             //   onLogout: () {
-            //     // Тут можно добавить очистку токена, SharedPreferences и т.д.
+            //     userProvider.clearUser();
             //     Navigator.of(context).pushReplacementNamed('/login');
             //   },
             // ),
-            //
-            // const SizedBox(height: 20),
-            // const AboutUs(), // если он у тебя реализован
           ],
         ),
       ),

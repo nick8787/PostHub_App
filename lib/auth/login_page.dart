@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // dotenv
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-// HTTP-клиент
+// HTTP-client
 import 'package:http/http.dart' as http;
 import 'package:user_auth_crudd10/auth/forget_pass_page.dart';
 import 'package:user_auth_crudd10/pages/home_page.dart';
 
 import '../pages/bottom_nav.dart';
-
+import 'package:provider/provider.dart';
+import 'package:user_auth_crudd10/services/providers/user_provider.dart';
+import 'package:user_auth_crudd10/model/user_model.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -32,15 +34,17 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> signIn() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
+
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Введите email и пароль')),
+        const SnackBar(content: Text('Please enter both email and password.')),
       );
       return;
     }
 
     final baseUrl = dotenv.env['API_URL']!;
-    final uri = Uri.parse('$baseUrl/auth/login');
+    final loginPath = dotenv.env['LOGIN_PATH'] ?? '/auth/login';
+    final uri = Uri.parse('$baseUrl$loginPath');
 
     try {
       final resp = await http.post(
@@ -56,7 +60,9 @@ class _LoginPageState extends State<LoginPage> {
         final body = jsonDecode(resp.body) as Map<String, dynamic>;
         final token = body['token'];
 
-        // Успешный логин — переход на HomePage
+        final user = UserModel.fromJson(body['payload']);
+        Provider.of<UserProvider>(context, listen: false).setUser(user);
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -65,17 +71,17 @@ class _LoginPageState extends State<LoginPage> {
         );
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Успешная авторизация!')),
+          const SnackBar(content: Text('Login successful!')),
         );
       } else {
         final err = jsonDecode(resp.body);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Ошибка ${resp.statusCode}: ${err['message'] ?? resp.body}')),
+          SnackBar(content: Text('Login failed: ${err['message'] ?? resp.body}')),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Ошибка сети: $e')),
+        SnackBar(content: Text('Network error: $e')),
       );
     }
   }
@@ -127,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                   bottom: 0,
                   child: Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                     child: Container(
                       // height: MediaQuery.of(context).size.height *
                       //     0.9, //chnage old was 700
@@ -229,7 +235,7 @@ class _LoginPageState extends State<LoginPage> {
                                     isObscure
                                         ? Icons.lock
                                         : Icons
-                                            .no_encryption_gmailerrorred_rounded,
+                                        .no_encryption_gmailerrorred_rounded,
                                   ),
                                 ),
                               ),
@@ -269,7 +275,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.symmetric(horizontal: 0),
+                                  const EdgeInsets.symmetric(horizontal: 0),
                                   child: Row(
                                     children: [
                                       GestureDetector(
@@ -278,7 +284,7 @@ class _LoginPageState extends State<LoginPage> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ForgetPassPage(),
+                                              const ForgetPassPage(),
                                             ),
                                           );
                                         },
