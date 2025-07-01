@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace "com.example.user_auth_crudd10"
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.example.user_auth_crudd10"

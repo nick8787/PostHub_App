@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:user_auth_crudd10/pages/home_page.dart';
+import 'package:user_auth_crudd10/pages/home/home_page.dart';
 import 'package:user_auth_crudd10/pages/others/answer_page.dart';
-import 'package:user_auth_crudd10/pages/others/profile_page.dart';
+import 'package:user_auth_crudd10/pages/profile/profile_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -10,40 +10,81 @@ class BottomNavBar extends StatefulWidget {
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMixin {
   int _selectedIndex = 0;
+
+  late final List<Widget> _pages;
+  late final AnimationController _controller;
+  late final Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      HomePage(),
+      AnswerPage(),
+      const ProfilePage(),
+    ];
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _fadeAnimation =
+        CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+    _controller.forward();
+  }
 
   void _changeIndex(int index) {
     setState(() {
+      _controller.reset();
       _selectedIndex = index;
+      _controller.forward();
     });
   }
 
   Color _iconColor(int index) {
     return _selectedIndex == index
-        ? Theme.of(context).colorScheme.secondary
-        : Colors.grey;
+        ? Colors.deepPurpleAccent
+        : Colors.grey[500]!;
   }
 
-  List<Widget> _pages = [
-    HomePage(),
-    AnswerPage(),
-    const ProfilePage(),
-  ];
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      backgroundColor: const Color(0xFF121212),
+      body: _controller.isAnimating || _fadeAnimation.value != 0
+          ? FadeTransition(
+        opacity: _fadeAnimation,
+        child: _pages[_selectedIndex],
+      )
+          : _pages[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).colorScheme.surface,
+          color: const Color(0xFF1E1E1E),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              blurRadius: 8,
+              offset: const Offset(0, -2),
+            ),
+          ],
         ),
         child: BottomNavigationBar(
-          selectedItemColor: Theme.of(context).colorScheme.secondary,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          selectedItemColor: Colors.deepPurpleAccent,
           unselectedItemColor: Colors.grey[500],
-          // backgroundColor: Colors.transparent,
+          type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
           onTap: _changeIndex,
           items: [
@@ -51,6 +92,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               icon: Image.asset(
                 "assets/icons/ic_home.png",
                 color: _iconColor(0),
+                height: 24,
               ),
               label: "Home",
             ),
@@ -58,7 +100,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               icon: Image.asset(
                 "assets/icons/ic_ans.png",
                 color: _iconColor(1),
-                scale: 25,
+                height: 24,
               ),
               label: "Answers",
             ),
@@ -66,6 +108,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               icon: Image.asset(
                 "assets/icons/ic_p.png",
                 color: _iconColor(2),
+                height: 24,
               ),
               label: "Profile",
             ),

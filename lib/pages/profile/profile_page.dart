@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:user_auth_crudd10/pages/userProfileEdit_page.dart';
+import 'package:user_auth_crudd10/pages/profile/edit_profile_page.dart';
 import 'package:user_auth_crudd10/services/providers/user_provider.dart';
-import 'package:user_auth_crudd10/services/settings/theme_provider.dart';
-import 'package:user_auth_crudd10/widgets/features/logOut_func.dart';
+import 'package:user_auth_crudd10/config/theme_provider.dart';
+import 'package:user_auth_crudd10/widgets/logout_button.dart';
 import 'package:user_auth_crudd10/widgets/global/about_us.dart';
-import '../../model/user_model.dart';
+import '../../core/models/user_model.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

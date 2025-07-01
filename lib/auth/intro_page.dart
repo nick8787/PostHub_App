@@ -10,27 +10,24 @@ class IntroScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
         children: [
-          // Background image
-          SizedBox(
-            width: double.infinity,
-            height: double.infinity,
+          // 📷 Картинка на фон
+          Positioned.fill(
             child: Image.asset(
-              'assets/images/intro_img1.png',
+              'assets/images/onboarding1.png',
               fit: BoxFit.cover,
             ),
           ),
 
-          // Semi-transparent overlay for readability
+          // 🔲 Полупрозрачный чёрный оверлей
           Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: Colors.black.withOpacity(0.5),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.50),
+            ),
           ),
 
-          // Content
+          // 📝 Контент
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40),
@@ -39,17 +36,17 @@ class IntroScreen extends StatelessWidget {
                 children: [
                   const Spacer(),
                   Text(
-                    "The Most\nTrusted\nSource for\nExam Prep",
+                    "Post Hub\nlive-demo project",
                     style: GoogleFonts.inter(
                       fontSize: size.width * 0.1,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w900,
                       color: Colors.white,
                       height: 1.2,
                     ),
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    "PrepPdf provides reliable, high-quality content to ensure you're well-prepared for your exams.",
+                    "Flutter app for interaction IAM backend service",
                     style: GoogleFonts.inter(
                       fontSize: 16,
                       color: Colors.white.withOpacity(0.85),
@@ -66,7 +63,7 @@ class IntroScreen extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                        backgroundColor: const Color(0xFF8E24AA),
                         padding: const EdgeInsets.symmetric(vertical: 18),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
