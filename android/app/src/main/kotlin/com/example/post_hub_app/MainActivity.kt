@@ -1,4 +1,4 @@
-package com.example.user_auth_crudd10
+package com.example.post_hub_app
 
 import io.flutter.embedding.android.FlutterActivity
 

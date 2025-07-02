@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:user_auth_crudd10/pages/home/home_page.dart';
-import 'package:user_auth_crudd10/pages/profile/profile_page.dart';
-import 'package:user_auth_crudd10/pages/create/create_selection_page.dart';
-import 'package:user_auth_crudd10/pages/notifications/notifications_page.dart';
+import 'package:post_hub_app/pages/home/home_page.dart';
+import 'package:post_hub_app/pages/profile/profile_page.dart';
+import 'package:post_hub_app/pages/create/create_selection_page.dart';
+import 'package:post_hub_app/pages/notifications/notifications_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

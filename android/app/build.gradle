@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace "com.example.user_auth_crudd10"
+    namespace "com.example.post_hub_app"
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.example.user_auth_crudd10"
+        applicationId "com.example.post_hub_app"
         minSdk 23
         targetSdk 34
         versionCode 1
@@ -27,7 +27,9 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            minifyEnabled true
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }

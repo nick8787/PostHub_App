@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:user_auth_crudd10/config/theme_provider.dart';
-import 'package:user_auth_crudd10/services/providers/user_provider.dart';
-import 'package:user_auth_crudd10/widgets/global/about_us.dart';
-import 'package:user_auth_crudd10/widgets/logout_button.dart';
+import 'package:post_hub_app/config/theme_provider.dart';
+import 'package:post_hub_app/services/providers/user_provider.dart';
+import 'package:post_hub_app/widgets/global/about_us.dart';
+import 'package:post_hub_app/widgets/logout_button.dart';
 import '../../core/models/user_model.dart';
 import 'edit_profile_page.dart';
 

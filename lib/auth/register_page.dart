@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:user_auth_crudd10/auth/verify_email_page.dart';
+import 'package:post_hub_app/auth/verify_email_page.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showSignUpPage;

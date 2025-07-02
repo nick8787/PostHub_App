@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:user_auth_crudd10/pages/create/create_comment_page.dart';
-import 'package:user_auth_crudd10/pages/create/create_post_page.dart';
-import 'package:user_auth_crudd10/services/providers/user_provider.dart';
+import 'package:post_hub_app/pages/create/create_comment_page.dart';
+import 'package:post_hub_app/pages/create/create_post_page.dart';
+import 'package:post_hub_app/services/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class CreatePage extends StatelessWidget {

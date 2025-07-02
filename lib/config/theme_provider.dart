@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:user_auth_crudd10/config/theme.dart';
+import 'package:post_hub_app/config/theme.dart';
 
 class ThemeProvider with ChangeNotifier {
   bool _isDarkMode = false;

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-import 'package:user_auth_crudd10/auth/intro_page.dart';
-import 'package:user_auth_crudd10/services/providers/storage_ans_provider.dart';
-import 'package:user_auth_crudd10/services/providers/storage_provider.dart';
-import 'package:user_auth_crudd10/services/providers/user_provider.dart';
-import 'package:user_auth_crudd10/config/theme.dart';
-import 'package:user_auth_crudd10/config/theme_provider.dart';
+import 'package:post_hub_app/auth/intro_page.dart';
+import 'package:post_hub_app/services/providers/storage_ans_provider.dart';
+import 'package:post_hub_app/services/providers/storage_provider.dart';
+import 'package:post_hub_app/services/providers/user_provider.dart';
+import 'package:post_hub_app/config/theme.dart';
+import 'package:post_hub_app/config/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

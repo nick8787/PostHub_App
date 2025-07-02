@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:user_auth_crudd10/auth/auth_check.dart';
+import 'package:post_hub_app/auth/auth_check.dart';
 
 class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});

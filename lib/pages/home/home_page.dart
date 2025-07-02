@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:user_auth_crudd10/widgets/post_card.dart';
+import 'package:post_hub_app/widgets/post_card.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
