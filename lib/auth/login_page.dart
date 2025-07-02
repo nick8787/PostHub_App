@@ -232,6 +232,29 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text("Log In", style: TextStyle(fontSize: 16)),
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'or',
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const BottomNavBar()),
+                        );
+                      },
+                      child: const Text(
+                        'Continue as a guest',
+                        style: TextStyle(
+                          color: Colors.deepPurpleAccent,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+
                   ],
                 ),
               ),

@@ -1,141 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class aboutUs extends StatelessWidget {
-  const aboutUs({
-    super.key,
-  });
+class AboutUs extends StatelessWidget {
+  const AboutUs({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: GestureDetector(
-        onTap: () {
-          showBottomSheet(
-            enableDrag: true,
-            sheetAnimationStyle: AnimationStyle(),
-            context: context,
-            builder: (context) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  height: 300,
-                  width: double.maxFinite,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(30),
-                    ),
-                  ),
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20,
-                        ),
-                        child: Text(
-                          'PrepPdf',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                        ),
-                        child: Text(
-                          'PrepPdf offers free access to structured previous year question papers (PYQs) and solutions. Navigate seamlessly through a variety of subjects with reliable resources and community insights.',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Color.fromARGB(255, 64, 64, 64),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Developed By :',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.deepPurple,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Atharva Girme',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
-        },
-        child: Container(
-          height: 60,
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Theme.of(context).colorScheme.primary,
-          ),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(
-                  Icons.supervised_user_circle_rounded,
-                  size: 30,
-                ),
-                Text(
-                  "About Us",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(width: 60),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Icon(Icons.arrow_forward_ios_outlined),
-                ),
-              ],
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              width: 40,
+              height: 4,
+              margin: const EdgeInsets.only(bottom: 20),
+              decoration: BoxDecoration(
+                color: Colors.grey[400],
+                borderRadius: BorderRadius.circular(4),
+              ),
             ),
           ),
-        ),
+          Text(
+            'About Us',
+            style: GoogleFonts.inter(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: textColor,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'PostHub — это учебное приложение для демонстрации работы с микросервисной архитектурой, '
+                'включающей регистрацию, авторизацию, создание постов, комментарии и многое другое.',
+            style: GoogleFonts.inter(fontSize: 15, height: 1.5, color: textColor),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Разработано Миколою Щипайло в рамках обучающего курса на Udemy.',
+            style: GoogleFonts.inter(fontSize: 13, color: Colors.grey),
+          ),
+        ],
       ),
     );
   }

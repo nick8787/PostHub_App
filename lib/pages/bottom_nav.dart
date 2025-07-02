@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:user_auth_crudd10/pages/home/home_page.dart';
-import 'package:user_auth_crudd10/pages/others/answer_page.dart';
 import 'package:user_auth_crudd10/pages/profile/profile_page.dart';
+import 'package:user_auth_crudd10/pages/create/create_selection_page.dart';
+import 'package:user_auth_crudd10/pages/notifications/notifications_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -10,7 +11,8 @@ class BottomNavBar extends StatefulWidget {
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMixin {
+class _BottomNavBarState extends State<BottomNavBar>
+    with TickerProviderStateMixin {
   int _selectedIndex = 0;
 
   late final List<Widget> _pages;
@@ -22,7 +24,8 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
     super.initState();
     _pages = [
       HomePage(),
-      AnswerPage(),
+      CreatePage(),
+      NotificationsPage(),
       const ProfilePage(),
     ];
     _controller = AnimationController(
@@ -82,11 +85,19 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
         child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          selectedItemColor: Colors.deepPurpleAccent,
-          unselectedItemColor: Colors.grey[500],
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
           onTap: _changeIndex,
+          selectedItemColor: Colors.deepPurpleAccent,
+          unselectedItemColor: Colors.grey[500],
+          selectedLabelStyle: const TextStyle(
+            decoration: TextDecoration.none,
+            fontWeight: FontWeight.normal,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            decoration: TextDecoration.none,
+            fontWeight: FontWeight.normal,
+          ),
           items: [
             BottomNavigationBarItem(
               icon: Image.asset(
@@ -98,16 +109,24 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
-                "assets/icons/ic_ans.png",
+                "assets/icons/ic_create.png",
                 color: _iconColor(1),
                 height: 24,
               ),
-              label: "Answers",
+              label: "Create",
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                "assets/icons/ic_notif.png",
+                color: _iconColor(2),
+                height: 24,
+              ),
+              label: "Notifications",
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
                 "assets/icons/ic_p.png",
-                color: _iconColor(2),
+                color: _iconColor(3),
                 height: 24,
               ),
               label: "Profile",

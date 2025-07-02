@@ -12,7 +12,6 @@ class IntroScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // 📷 Картинка на фон
           Positioned.fill(
             child: Image.asset(
               'assets/images/onboarding1.png',
@@ -20,14 +19,12 @@ class IntroScreen extends StatelessWidget {
             ),
           ),
 
-          // 🔲 Полупрозрачный чёрный оверлей
           Container(
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.50),
             ),
           ),
 
-          // 📝 Контент
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40),

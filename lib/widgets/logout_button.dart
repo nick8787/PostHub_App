@@ -1,39 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class logOutFunc extends StatelessWidget {
-  const logOutFunc({
-    super.key,
-    required this.onLogout,
-  });
-
+class LogoutButton extends StatelessWidget {
   final VoidCallback onLogout;
+
+  const LogoutButton({super.key, required this.onLogout});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: GestureDetector(
-        onTap: onLogout,
-        child: Container(
-          alignment: Alignment.center,
-          height: 50,
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Colors.red,
-              width: 0.7,
-            ),
-          ),
-          child: const Text(
-            "Logout",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              color: Colors.red,
-            ),
-          ),
+    return OutlinedButton.icon(
+      onPressed: onLogout,
+      icon: const Icon(Icons.logout, color: Colors.red),
+      label: Text(
+        'Logout',
+        style: GoogleFonts.inter(
+          color: Colors.red,
+          fontWeight: FontWeight.w500,
+          fontSize: 16,
+        ),
+      ),
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(color: Colors.red),
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
     );
